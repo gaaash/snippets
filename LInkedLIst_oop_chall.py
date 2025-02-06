@@ -1,3 +1,8 @@
+'''
+    Challenge #7 
+    From : https://www.w3resource.com/python-exercises/oop/index.php
+    
+'''
 class Node:
     def __init__(self, data=None):
         self.data = data
