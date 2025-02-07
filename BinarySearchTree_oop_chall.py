@@ -1,5 +1,6 @@
 
-# Challenge #5  by : https://www.w3resource.com/python-exercises/oop/index.php
+# Challenge #5  
+# by : https://www.w3resource.com/python-exercises/oop/index.php
 
 
 
@@ -13,9 +14,6 @@ class Node:
 
 
 class BinarySearch(Node):
-	# def __init__(self, root):
-	# 		super().__init__(root)
-
 	def insert(self, value):
 		if value < self.root:
 			if self.left is None:
