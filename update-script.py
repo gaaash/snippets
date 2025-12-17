@@ -1,11 +1,12 @@
 import os 
-
+from sys import exit
 
 # APT related commands
 aptupdate = "sudo apt update && sudo apt upgrade -y"
 
 # UV related commands
-uvselfupdate = "uv self update"
+uv_self_update = "uv self update"
+uv_tool_update = "uv tool upgrade --all"
 check_venv = 'echo "$VIRTUAL_ENV"'
 activate_venv = "avenv"
 uv_vevn_update = "uv lock --upgrade"
@@ -35,7 +36,9 @@ def apt_updater():
 # Update UV
 def uv_updater():
     state_type = ''
-    os.system(uvselfupdate)
+    os.system(uv_self_update)
+    print("\n")
+    os.system(uv_tool_update)
     userinput = input("Update venv packages in this Dir ? (y/n) ") or "n"
     if userinput.lower() == "y":
         if os.path.exists(".venv"):
@@ -85,12 +88,12 @@ def main():
     uv      = False
     brew    = False
     flatpak = False
-    menu    = '''
-1) All
-2) APT 
-3) UV
-4) HomeBrew
-5) Flatpak
+    menu    = '''1. All
+2. APT 
+3. UV
+4. HomeBrew
+5. Flatpak
+q. Quit
     '''
     
     print(menu)
@@ -110,9 +113,12 @@ def main():
         brew_status_code  = brew_updater()
         print(separator)
         flatpak_status_code = flatpak_updater()
-    
-    elif len(update_user_selections) > 1 and '1' in update_user_selections:
-        print("ERROR: wrong input (can't use All with other options)")
+
+    elif len(update_user_selections) == 1 and 'q' in update_user_selections:
+        exit(0)
+    elif (len(update_user_selections) > 1 and '1' in update_user_selections) or (len(update_user_selections) > 1 and 'q' in update_user_selections):
+        print("ERROR: wrong input (can't use 'All' or 'Quit' with other options)")
+        exit(0)
     else:
         for i in update_user_selections:
             match i:
